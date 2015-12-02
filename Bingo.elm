@@ -1,7 +1,30 @@
 module Bingo where
 
-import Html
-import String
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import String exposing (toUpper, repeat, trimRight)
 
-main = 
-  Html.text (String.repeat 4 (String.toUpper "bingo! "))
+
+title message times =
+  message ++ " "
+    |> toUpper
+    |> repeat times
+    |> trimRight
+    |> text
+
+pageHeader =
+  h1 [] [ title "Hello there!" 3 ]
+
+
+pageFooter =
+  footer [ ]
+    [
+      a [href "http://example.com" ] [ text "Josh's shitty elm code" ]
+    ]
+
+view = 
+  div [ ] [ pageHeader, pageFooter ]
+
+main =
+  view
