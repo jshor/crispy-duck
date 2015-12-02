@@ -1,3 +1,38 @@
 body {
 	font-family: Arial, Tahoma, sans-serif;
+	background-color: #e8e8e8;
+
+}
+
+h1 {
+  color: rgba(10,60,150, 0.8);
+  text-align: center;
+  text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
+}
+
+.view {
+	margin: auto;
+	width: 100%;
+	max-width: 1000px;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+ul > li {
+	background-color: #fff;
+	margin-bottom: 10px;
+	padding: 20px 30px;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #5a5a5a;
+	transition: box-shadow 0.15s;
+	box-shadow: 2px 2px 4px #ccc;
+}
+
+ul > li:hover {
+	box-shadow: 2px 2px 4px #808080;
 }

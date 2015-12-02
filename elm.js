@@ -10305,11 +10305,12 @@ Elm.Bingo.make = function (_elm) {
    var pageFooter = A2($Html.footer,
    _U.list([]),
    _U.list([A2($Html.a,_U.list([$Html$Attributes.href("http://example.com")]),_U.list([$Html.text("Josh\'s shitty elm code")]))]));
+   var entryList = A2($Html.ul,_U.list([]),_U.list([A2($Html.li,_U.list([]),_U.list([$Html.text("Future-Proof")]))]));
    var title = F2(function (message,times) {
       return $Html.text($String.trimRight(A2($String.repeat,times,$String.toUpper(A2($Basics._op["++"],message," ")))));
    });
-   var pageHeader = A2($Html.h1,_U.list([]),_U.list([A2(title,"Hello there!",3)]));
-   var view = A2($Html.div,_U.list([]),_U.list([pageHeader,pageFooter]));
+   var pageHeader = A2($Html.h1,_U.list([]),_U.list([A2(title,"Hello thereeee!",3)]));
+   var view = A2($Html.div,_U.list([]),_U.list([pageHeader,entryList,pageFooter]));
    var main = view;
-   return _elm.Bingo.values = {_op: _op,title: title,pageHeader: pageHeader,pageFooter: pageFooter,view: view,main: main};
+   return _elm.Bingo.values = {_op: _op,title: title,pageHeader: pageHeader,entryList: entryList,pageFooter: pageFooter,view: view,main: main};
 };

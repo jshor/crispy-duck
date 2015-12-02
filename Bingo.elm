@@ -6,15 +6,32 @@ import Html.Events exposing (..)
 import String exposing (toUpper, repeat, trimRight)
 
 
-title message times =
-  message ++ " "
+newEntry phrase points id =
+  {
+    phrase = phrase,
+    points = points,
+    id = id,
+    wasSpoken = False
+  }
+
+title message =
+  message
     |> toUpper
-    |> repeat times
-    |> trimRight
     |> text
 
 pageHeader =
-  h1 [] [ title "Hello there!" 3 ]
+  h1 [] [ title "Buzzword Bingo" ]
+
+
+entryItem entry =
+  li [] [ text entry.phrase ]
+
+
+entryList =
+  ul [] [
+    entryItem (newEntry "Future-Proof" 100 1),
+    entryItem (newEntry "Doing Agile" 200 2)
+  ]
 
 
 pageFooter =
@@ -24,7 +41,11 @@ pageFooter =
     ]
 
 view = 
-  div [ ] [ pageHeader, pageFooter ]
+  div [ class "view" ] [ 
+    pageHeader, 
+    entryList, 
+    pageFooter 
+  ]
 
 main =
   view
