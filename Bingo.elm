@@ -4,7 +4,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String exposing (toUpper, repeat, trimRight)
+import StartApp.Simple as StartApp
 
+-- MODEL
 
 newEntry phrase points id =
   {
@@ -17,10 +19,10 @@ newEntry phrase points id =
 initialModel = 
   {
     entries = [
-      (newEntry "Future-Proof" 100 1),
+      (newEntry "Future-Proof" 300 3),
       (newEntry "Doing Agile"  200 2),
-      (newEntry "In The Cloud" 300 3),
-      (newEntry "Cyber Attack" 400 4)
+      (newEntry "In The Cloud" 400 4),
+      (newEntry "Cyber Attack" 100 1)
     ]
   }
 
@@ -34,6 +36,9 @@ update action model =
   case action of
     NoOp ->
       model
+    
+    Sort ->
+      { model | entries = List.sortBy .points model.entries}
 
 -- VIEW
 
@@ -51,22 +56,29 @@ entryItem entry =
     div [] [ span [] [text (toString entry.points)] ]
   ]
 
-entryList =
-  ul [ class "buzzword-list" ] (List.map entryItem initialModel.entries)
-
+entryList entries =
+  ul [ class "buzzword-list" ] (List.map entryItem entries)
 
 pageFooter =
   footer [ ]
     [
-      a [href "http://example.com" ] [ text "Josh's shitty elm code" ]
+      a [href "http://example.com" ] [ text "Hello, world" ]
     ]
 
-view = 
+view address model = 
   div [ class "view" ] [ 
     pageHeader, 
-    entryList, 
+    (entryList model.entries),
+    button 
+      [ class "sort", onClick address Sort ] 
+      [ text "Sort" ],
     pageFooter 
   ]
 
 main =
-  view (update NoOp initialModel)
+  StartApp.start
+    {
+      model = initialModel,
+      view = view,
+      update = update
+    }
