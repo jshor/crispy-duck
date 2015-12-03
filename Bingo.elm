@@ -6,7 +6,9 @@ import Html.Events exposing (..)
 import String exposing (toUpper, repeat, trimRight)
 import StartApp.Simple as StartApp
 
+
 -- MODEL
+
 
 newEntry phrase points id =
   {
@@ -15,6 +17,7 @@ newEntry phrase points id =
     id = id,
     wasSpoken = False
   }
+
 
 initialModel = 
   {
@@ -26,11 +29,16 @@ initialModel =
     ]
   }
 
+
 -- UPDATE
+
 
 type Action
   = NoOp
   | Sort
+  | Delete Int
+  | Mark Int
+
 
 update action model =
   case action of
@@ -40,24 +48,67 @@ update action model =
     Sort ->
       { model | entries = List.sortBy .points model.entries}
 
+    Delete id ->
+      let remainingEntries = 
+        List.filter (\e -> e.id /= id) model.entries
+      in
+        { model | entries = remainingEntries }
+
+    Mark id ->
+      let
+        updatedEntry e =
+          if e.id == id then { e | wasSpoken = (not e.wasSpoken) } else e
+      in
+        { model | entries = List.map updatedEntry model.entries }
 -- VIEW
+
 
 title message =
   message
     |> text
 
+
 pageHeader =
   h1 [] [ title "Buzzword Bingo" ]
 
 
-entryItem entry =
-  li [] [ 
-    div [] [ span [] [text entry.phrase] ],
-    div [] [ span [] [text (toString entry.points)] ]
+totalPoints entries =
+  let
+    spokenEntries = List.filter .wasSpoken entries
+  in
+    List.sum (List.map .points spokenEntries)
+
+
+totalItem points =
+  ul [ class "points" ]
+  [
+    li [] [ text "Points" ],
+    li [] [ text (toString points) ]
   ]
 
-entryList entries =
-  ul [ class "buzzword-list" ] (List.map entryItem entries)
+
+entryItem address entry =
+  li 
+    [ 
+      classList [ ("highlight", entry.wasSpoken) ],
+      onClick address (Mark entry.id)
+    ] 
+    [ 
+      div [] [ span [] [text entry.phrase] ],
+      div [] [ 
+        span [] [ text (toString entry.points) ],
+        span [] [ text "&times;" ]
+      ]
+    ]
+
+
+entryList address entries =
+  let
+    entryItems = List.map entryItem (address entries)
+    items = entryItems ++ [ totalItem (totalPoints entries) ]
+  in
+    ul [ class "buzzword-list" ] items
+
 
 pageFooter =
   footer [ ]
@@ -65,15 +116,17 @@ pageFooter =
       a [href "http://example.com" ] [ text "Hello, world" ]
     ]
 
+
 view address model = 
   div [ class "view" ] [ 
     pageHeader, 
-    (entryList model.entries),
+    ( entryList (address model.entries) ),
     button 
       [ class "sort", onClick address Sort ] 
       [ text "Sort" ],
     pageFooter 
   ]
+
 
 main =
   StartApp.start

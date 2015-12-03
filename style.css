@@ -60,6 +60,10 @@ ul.buzzword-list > li > div {
 	padding: 20px 0px;
 }
 
+ul.buzzword-list > li.highlight {
+	background-color: red;
+}
+
 ul.buzzword-list > li > div > span {
 	padding: 0px 20px;
 }
