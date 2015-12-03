@@ -14,9 +14,31 @@ newEntry phrase points id =
     wasSpoken = False
   }
 
+initialModel = 
+  {
+    entries = [
+      (newEntry "Future-Proof" 100 1),
+      (newEntry "Doing Agile"  200 2),
+      (newEntry "In The Cloud" 300 3),
+      (newEntry "Cyber Attack" 400 4)
+    ]
+  }
+
+-- UPDATE
+
+type Action
+  = NoOp
+  | Sort
+
+update action model =
+  case action of
+    NoOp ->
+      model
+
+-- VIEW
+
 title message =
   message
-    |> toUpper
     |> text
 
 pageHeader =
@@ -24,14 +46,13 @@ pageHeader =
 
 
 entryItem entry =
-  li [] [ text entry.phrase ]
-
+  li [] [ 
+    div [] [ span [] [text entry.phrase] ],
+    div [] [ span [] [text (toString entry.points)] ]
+  ]
 
 entryList =
-  ul [] [
-    entryItem (newEntry "Future-Proof" 100 1),
-    entryItem (newEntry "Doing Agile" 200 2)
-  ]
+  ul [ class "buzzword-list" ] (List.map entryItem initialModel.entries)
 
 
 pageFooter =
@@ -48,4 +69,4 @@ view =
   ]
 
 main =
-  view
+  view (update NoOp initialModel)

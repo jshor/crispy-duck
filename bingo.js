@@ -10299,21 +10299,30 @@ Elm.Bingo.make = function (_elm) {
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm),
-   $String = Elm.String.make(_elm);
+   $Signal = Elm.Signal.make(_elm);
    var _op = {};
    var pageFooter = A2($Html.footer,
    _U.list([]),
    _U.list([A2($Html.a,_U.list([$Html$Attributes.href("http://example.com")]),_U.list([$Html.text("Josh\'s shitty elm code")]))]));
-   var entryItem = function (entry) {    return A2($Html.li,_U.list([]),_U.list([$Html.text(entry.phrase)]));};
-   var title = function (message) {    return $Html.text($String.toUpper(message));};
+   var entryItem = function (entry) {
+      return A2($Html.li,
+      _U.list([]),
+      _U.list([A2($Html.div,_U.list([]),_U.list([A2($Html.span,_U.list([]),_U.list([$Html.text(entry.phrase)]))]))
+              ,A2($Html.div,_U.list([]),_U.list([A2($Html.span,_U.list([]),_U.list([$Html.text($Basics.toString(entry.points))]))]))]));
+   };
+   var title = function (message) {    return $Html.text(message);};
    var pageHeader = A2($Html.h1,_U.list([]),_U.list([title("Buzzword Bingo")]));
    var newEntry = F3(function (phrase,points,id) {    return {phrase: phrase,points: points,id: id,wasSpoken: false};});
-   var entryList = A2($Html.ul,_U.list([]),_U.list([entryItem(A3(newEntry,"Future-Proof",100,1)),entryItem(A3(newEntry,"Doing Agile",200,2))]));
+   var initialModel = {entries: _U.list([A3(newEntry,"Future-Proof",100,1)
+                                        ,A3(newEntry,"Doing Agile",200,2)
+                                        ,A3(newEntry,"In The Cloud",300,3)
+                                        ,A3(newEntry,"Cyber Attack",400,4)])};
+   var entryList = A2($Html.ul,_U.list([$Html$Attributes.$class("buzzword-list")]),A2($List.map,entryItem,initialModel.entries));
    var view = A2($Html.div,_U.list([$Html$Attributes.$class("view")]),_U.list([pageHeader,entryList,pageFooter]));
    var main = view;
    return _elm.Bingo.values = {_op: _op
                               ,newEntry: newEntry
+                              ,initialModel: initialModel
                               ,title: title
                               ,pageHeader: pageHeader
                               ,entryItem: entryItem
