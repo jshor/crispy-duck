@@ -51,8 +51,8 @@ Elm.Bingo.make = function (_elm) {
                       ,A2($Html.span,_U.list([A2($Html$Events.onClick,address,Delete(entry.id))]),_U.list([$Html.text("×")]))]))]));
    });
    var entryList = F2(function (address,entries) {
-      var items = _U.list([totalItem(totalPoints(entries))]);
-      return A2($Html.ul,_U.list([$Html$Attributes.$class("buzzword-list")]),A2($List.map,entryItem(address),entries));
+      var entryItems = A2($List.map,entryItem(address),entries);
+      return A2($Html.ul,_U.list([$Html$Attributes.$class("buzzword-list")]),entryItems);
    });
    var Sort = {ctor: "Sort"};
    var view = F2(function (address,model) {
@@ -61,6 +61,7 @@ Elm.Bingo.make = function (_elm) {
       _U.list([pageHeader
               ,A2(entryList,address,model.entries)
               ,A2($Html.button,_U.list([$Html$Attributes.$class("sort"),A2($Html$Events.onClick,address,Sort)]),_U.list([$Html.text("Sort")]))
+              ,totalItem(totalPoints(model.entries))
               ,pageFooter]));
    });
    var NoOp = {ctor: "NoOp"};

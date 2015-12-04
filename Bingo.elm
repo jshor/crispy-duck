@@ -106,11 +106,11 @@ entryItem address entry =
 
 entryList address entries =
   let
-    items = [ totalItem (totalPoints entries) ]
+    entryItems = (List.map (entryItem address) entries)
   in
     ul 
-      [ class "buzzword-list" ]
-      (List.map (entryItem address) entries)
+      [ class "buzzword-list" ] entryItems
+      
 
 
 pageFooter =
@@ -127,6 +127,7 @@ view address model =
     button 
       [ class "sort", onClick address Sort ]
       [ text "Sort" ],
+    ( totalItem (totalPoints model.entries) ),
     pageFooter 
   ]
 
