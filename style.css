@@ -1,54 +1,9 @@
 body {
 	font-family: Arial, Tahoma, sans-serif;
 	background-color: #e8e8e8;
-
 }
 
-h1 {
-  color: rgba(10,60,150, 0.8);
-  text-align: center;
-  text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
-  font-size: 3em;
-}
-
-.view {
-	margin: auto;
-	width: 100%;
-	max-width: 1000px;
-}
-
-.sort {
-	background-color: #e8e8e8;
-	padding: 5px 15px;
-	color: #555;
-	cursor: pointer;
-	font-size: 1.5em;
-	border: 2px solid #c0c0c0;
-	border-radius: 3px;
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
-.sort:hover {
-	background-color: #c0c0c0;
-	border: 2px solid #999;
-}
-
-.delete {
-	opacity: 0;
-	cursor: pointer;
-}
-
-.delete:hover {
-	color: #ff4d4d;
-}
-
-ul.buzzword-list, ul.points {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-	float: right;
-}
+/* total points */
 
 ul.points > li {
 	font-size: 1.5em;
@@ -56,6 +11,15 @@ ul.points > li {
 	color: #5a5a5a;
 	display: inline-block;
 	padding: 10px	10px;
+}
+
+/* buzzword list */
+
+ul.buzzword-list, ul.points {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	float: right;
 }
 
 ul.buzzword-list > li {
@@ -102,6 +66,49 @@ ul.buzzword-list > li > div:nth-child(2) {
 ul.buzzword-list > li:hover {
 	box-shadow: 2px 2px 4px #808080;
 }
+
+.delete {
+	opacity: 0;
+	cursor: pointer;
+}
+
+.delete:hover {
+	color: #ff4d4d;
+}
+
+/* global elements */
+
+h1 {
+  color: rgba(10,60,150, 0.8);
+  text-align: center;
+  text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
+  font-size: 3em;
+}
+
+.view {
+	margin: auto;
+	width: 100%;
+	max-width: 1000px;
+}
+
+.sort {
+	background-color: #e8e8e8;
+	padding: 5px 15px;
+	color: #555;
+	cursor: pointer;
+	font-size: 1.5em;
+	border: 2px solid #c0c0c0;
+	border-radius: 3px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.sort:hover {
+	background-color: #c0c0c0;
+	border: 2px solid #999;
+}
+
+/* footer */
 
 footer {
 	padding: 20px;
