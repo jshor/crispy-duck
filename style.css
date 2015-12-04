@@ -34,6 +34,15 @@ h1 {
 	border: 2px solid #999;
 }
 
+.delete {
+	opacity: 0;
+	cursor: pointer;
+}
+
+.delete:hover {
+	color: #ff4d4d;
+}
+
 ul.buzzword-list, ul.points {
 	margin: 0;
 	padding: 0;
@@ -54,7 +63,7 @@ ul.buzzword-list > li {
 	font-size: 1.5em;
 	font-weight: bold;
 	color: #5a5a5a;
-	transition: box-shadow 0.15s;
+	transition: all 0.15s;
 	box-shadow: 2px 2px 4px #ccc;
 	float: left;
 	width: 100%;
@@ -69,12 +78,21 @@ ul.buzzword-list > li > div {
 	padding: 20px 0px;
 }
 
-ul.buzzword-list > li.highlight {
-	background-color: red;
+ul.buzzword-list > li.highlight,
+ul.buzzword-list > li.highlight:hover {
+	background-color: #cce5ff;
+}
+
+ul.buzzword-list > li:hover {
+	background-color: #e5f2ff;
 }
 
 ul.buzzword-list > li > div > span {
 	padding: 0px 20px;
+}
+
+ul.buzzword-list > li > div:hover span.delete {
+	opacity: 1;
 }
 
 ul.buzzword-list > li > div:nth-child(2) {

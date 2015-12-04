@@ -17,7 +17,7 @@ Elm.Bingo.make = function (_elm) {
    var _op = {};
    var pageFooter = A2($Html.footer,
    _U.list([]),
-   _U.list([A2($Html.a,_U.list([$Html$Attributes.href("http://example.com")]),_U.list([$Html.text("Hello, world")]))]));
+   _U.list([A2($Html.a,_U.list([$Html$Attributes.href("http://github.com/jshor")]),_U.list([$Html.text("@jshor")]))]));
    var totalItem = function (points) {
       return A2($Html.ul,
       _U.list([$Html$Attributes.$class("points")]),
@@ -48,7 +48,9 @@ Elm.Bingo.make = function (_elm) {
               ,A2($Html.div,
               _U.list([]),
               _U.list([A2($Html.span,_U.list([]),_U.list([$Html.text($Basics.toString(entry.points))]))
-                      ,A2($Html.span,_U.list([A2($Html$Events.onClick,address,Delete(entry.id))]),_U.list([$Html.text("×")]))]))]));
+                      ,A2($Html.span,
+                      _U.list([$Html$Attributes.$class("delete"),A2($Html$Events.onClick,address,Delete(entry.id))]),
+                      _U.list([$Html.text("×")]))]))]));
    });
    var entryList = F2(function (address,entries) {
       var entryItems = A2($List.map,entryItem(address),entries);

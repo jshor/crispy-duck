@@ -98,7 +98,7 @@ entryItem address entry =
       div [] [ 
         span [] [ text (toString entry.points) ],
         span 
-          [ onClick address (Delete entry.id) ] 
+          [ class "delete", onClick address (Delete entry.id) ] 
           [ text "×" ]
       ]
     ]
@@ -116,7 +116,7 @@ entryList address entries =
 pageFooter =
   footer [ ]
     [
-      a [href "http://example.com" ] [ text "Hello, world" ]
+      a [href "http://github.com/jshor" ] [ text "@jshor" ]
     ]
 
 
