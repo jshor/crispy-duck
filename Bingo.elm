@@ -4,10 +4,25 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String exposing (toUpper, repeat, trimRight)
+import Signal exposing (Address)
 import StartApp.Simple as StartApp
 
 
 -- MODEL
+
+type alias Entry =
+  { 
+    phrase: String, 
+    points: Int, 
+    wasSpoken: Bool, 
+    id: Int 
+  }
+
+
+type alias Model =
+  {
+    entries: List Entry
+  }
 
 
 newEntry phrase points id =
@@ -40,6 +55,7 @@ type Action
   | Mark Int
 
 
+update : Action -> Model -> Model
 update action model =
   case action of
     NoOp ->
@@ -60,18 +76,23 @@ update action model =
           if e.id == id then { e | wasSpoken = (not e.wasSpoken) } else e
       in
         { model | entries = List.map updatedEntry model.entries }
+
+        
 -- VIEW
 
 
+title : String -> Html
 title message =
   message
     |> text
 
 
+pageHeader : Html
 pageHeader =
   h1 [] [ title "Buzzword Bingo" ]
 
 
+totalPoints : List Entry -> Int
 totalPoints entries =
   let
     spokenEntries = List.filter .wasSpoken entries
@@ -79,6 +100,7 @@ totalPoints entries =
     List.sum (List.map .points spokenEntries)
 
 
+totalItem : Int -> Html
 totalItem points =
   ul [ class "points" ]
   [
@@ -87,6 +109,7 @@ totalItem points =
   ]
 
 
+entryItem : Address Action -> Entry -> Html
 entryItem address entry =
   li 
     [
@@ -104,6 +127,7 @@ entryItem address entry =
     ]
 
 
+entryList : Address Action -> List Entry -> Html
 entryList address entries =
   let
     entryItems = (List.map (entryItem address) entries)
@@ -112,7 +136,7 @@ entryList address entries =
       [ class "buzzword-list" ] entryItems
       
 
-
+pageFooter : Html
 pageFooter =
   footer [ ]
     [
@@ -120,6 +144,7 @@ pageFooter =
     ]
 
 
+view : Address Action -> Model -> Html
 view address model = 
   div [ class "view" ] [ 
     pageHeader, 
@@ -132,6 +157,7 @@ view address model =
   ]
 
 
+main : Signal Html
 main =
   StartApp.start
     {
