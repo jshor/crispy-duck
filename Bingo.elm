@@ -89,7 +89,7 @@ totalItem points =
 
 entryItem address entry =
   li 
-    [ 
+    [
       classList [ ("highlight", entry.wasSpoken) ],
       onClick address (Mark entry.id)
     ] 
@@ -97,17 +97,20 @@ entryItem address entry =
       div [] [ span [] [text entry.phrase] ],
       div [] [ 
         span [] [ text (toString entry.points) ],
-        span [] [ text "&times;" ]
+        span 
+          [ onClick address (Delete entry.id) ] 
+          [ text "×" ]
       ]
     ]
 
 
 entryList address entries =
   let
-    entryItems = List.map entryItem (address entries)
-    items = entryItems ++ [ totalItem (totalPoints entries) ]
+    items = [ totalItem (totalPoints entries) ]
   in
-    ul [ class "buzzword-list" ] items
+    ul 
+      [ class "buzzword-list" ]
+      (List.map (entryItem address) entries)
 
 
 pageFooter =
@@ -120,9 +123,9 @@ pageFooter =
 view address model = 
   div [ class "view" ] [ 
     pageHeader, 
-    ( entryList (address model.entries) ),
+    (entryList address model.entries),
     button 
-      [ class "sort", onClick address Sort ] 
+      [ class "sort", onClick address Sort ]
       [ text "Sort" ],
     pageFooter 
   ]
